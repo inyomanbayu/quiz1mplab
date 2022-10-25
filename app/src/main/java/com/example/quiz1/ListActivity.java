@@ -45,7 +45,7 @@ public class ListActivity extends AppCompatActivity{
 
         dataModels = new ArrayList<DataModel>();
 
-        prepareListView();
+
     }
 
     private StringRequest getStringRequest(String url){
@@ -59,6 +59,8 @@ public class ListActivity extends AppCompatActivity{
                     dataModels.add(new DataModel(user.getInt("id"), user.getString("first_name"), user.getString("last_name"), user.getString("avatar")));
 
                 }
+
+                prepareListView();
 
             } catch (JSONException e){
                 e.printStackTrace();
@@ -101,16 +103,14 @@ class DataModelAdapter extends RecyclerView.Adapter<DataModelViewHolder> {
     public void onBindViewHolder(@NonNull DataModelViewHolder holder, int position) {
         DataModel model = dataModels.get(position);
 
-        holder.id.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Profile.class);
-                intent.putExtra("userFirstName", model.getFirst_name());
-                intent.putExtra("userLastName", model.getLast_name());
-                intent.putExtra("userAvatar", model.getImage_view());
-                view.getContext().startActivity(intent);
-            }
+        holder.id.setOnClickListener(view ->  {
+            final Intent intent;
+            intent = new Intent(view.getContext(), Profile.class);
+            intent.putExtra("userID", model.getId());
+            intent.putExtra("userFirstName", model.getFirst_name());
+            intent.putExtra("userLastName", model.getLast_name());
+            intent.putExtra("userAvatar", model.getImage_view());
+            view.getContext().startActivity(intent);
         });
 
         holder.first_name.setText(model.getFirst_name());
