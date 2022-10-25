@@ -4,11 +4,21 @@ public class DataModel {
     private String first_name;
     private String last_name;
     private String image_view;
+    private int id;
 
-    public DataModel(String first_name, String last_name, String image_view) {
+    public DataModel(int id, String first_name, String last_name, String image_view) {
+        this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.image_view = image_view;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getImage_view() {
